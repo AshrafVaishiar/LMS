@@ -1,5 +1,7 @@
 using lms.Application;
 using lms.Infrastructure;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -8,7 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+        {
+            Description = "Standard Authorization Header (\"bearer {token}\")",
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey
+        });
+
+        options.OperationFilter<SecurityRequirementsOperationFilter>();
+    });
 
 }
 

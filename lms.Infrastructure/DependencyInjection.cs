@@ -4,13 +4,13 @@ using lms.Infrastructure.Authentication;
 using lms.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using lms.Application.Common.Interfaces.Persistence;
 using lms.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace lms.Infrastructure;
 
@@ -23,6 +23,22 @@ public static class DependencyInjection
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserDbContext, UserDbContext>();
+
+        ///* Database context DI - local */
+        var dbHost = @"(LocalDb)\MSSQLLocalDB";
+        var dbName = "lms";
+        var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName};";
+        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        ///* ========================= */
+
+        /* Database context DI */
+        //var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+        //var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+        //var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+        //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName}; User ID=sa; Password={dbPassword}";
+        //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        /* ========================= */
 
         return services;
     }
@@ -32,12 +48,13 @@ public static class DependencyInjection
     {
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
-        
+
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters {
+        .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+        {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
@@ -48,7 +65,7 @@ public static class DependencyInjection
                 Encoding.UTF8.GetBytes(jwtSettings.Secret)
             )
         });
-        
+
         return services;
     }
 }

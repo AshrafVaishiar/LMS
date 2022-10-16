@@ -1,9 +1,10 @@
-using lms.Domain.Entities;
+﻿using lms.Domain.Entities;
 
-namespace lms.Application.Common.Interfaces.Persistence;
-
-public interface IUserRepository
+namespace lms.Infrastructure.Persistence
 {
-    User? GetUserByEmail(string Email);
-    void Add(User user);
+    public interface IUserRepository
+    {
+        Task Add(User user);
+        User? GetUserByEmail(string Email);
+    }
 }

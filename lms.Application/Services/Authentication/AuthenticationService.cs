@@ -1,6 +1,6 @@
 using lms.Application.Common.Interfaces.Authentication;
-using lms.Application.Common.Interfaces.Persistence;
 using lms.Domain.Entities;
+using lms.Infrastructure.Persistence;
 
 namespace lms.Application.Services.Authentication;
 
