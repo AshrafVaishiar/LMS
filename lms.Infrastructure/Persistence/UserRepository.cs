@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
     {
         _userDbContext = userDbContext;
     }
-    private static readonly List<User> _users = new();
+    
     public async Task Add(User user)
     {
         await _userDbContext.Users.AddAsync(user);

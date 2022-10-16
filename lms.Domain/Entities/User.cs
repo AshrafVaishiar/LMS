@@ -1,3 +1,5 @@
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace lms.Domain.Entities;
 
 public class User {

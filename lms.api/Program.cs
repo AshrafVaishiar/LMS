@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 }
 

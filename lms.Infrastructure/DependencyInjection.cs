@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserDbContext, UserDbContext>();
+        services.AddScoped<ICoursesRepository, CoursesRepository>();
 
         ///* Database context DI - local */
         var dbHost = @"(LocalDb)\MSSQLLocalDB";
