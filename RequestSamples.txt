@@ -1,0 +1,35 @@
+{
+  "courseName": "Dockererization",
+  "courseDuration": 2,
+  "courseDescription": "Introduction to docker",
+  "courseTechnology": "Docker",
+  "courseLaunchURL": "https://www.docker.com"
+}
+
+{
+  "email": "ash@lms.com",
+  "password": "Ash!23"
+}
+
+{
+  "userName": "ashadmin",
+  "userType": "admin",
+  "email": "ashadmin@lms.com",
+  "password": "adminpassword"
+}
+
+{
+  "courseName": ".Net 6.0",
+  "courseDuration": 3,
+  "courseDescription": ".Net and its new features",
+  "courseTechnology": ".Net",
+  "courseLaunchURL": "https://dotnet.microsoft.com"
+}
+
+{
+  "email": "ashadmin@lms.com",
+  "password": "adminpassword"
+}
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjODJkMGE5NC0xMGE1LTQ2ZGYtOWE2NS1mNjliN2E0ZjI1MzMiLCJuYW1lIjoiYXNoYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbiIsImV4cCI6MTY2NTkyNDk2MywiaXNzIjoibG1zIiwiYXVkIjoibG1zIn0.AGfQcd_LFFujcrIa58Of68odpUtM53fAQMC-Y5ZPMy8
