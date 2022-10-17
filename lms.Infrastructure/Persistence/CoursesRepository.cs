@@ -26,6 +26,7 @@ namespace lms.Infrastructure.Persistence
             // var dbName = "lms";
             /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
 
+<<<<<<< HEAD
             /* Mongo - Azure CosmosDb*/
             var connectionString = connectionStrings.Value.Mongo;
 
@@ -37,6 +38,10 @@ namespace lms.Infrastructure.Persistence
             
             var mongoClient = new MongoClient(settings);
             var dataBase = mongoClient.GetDatabase("lmscosmosmongo");
+=======
+            /* Mongo - Azure */
+            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
+>>>>>>> ConnectionStringChanges-Az
 
             _courses = dataBase.GetCollection<Course>("course");
         }
