@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,11 +23,19 @@ namespace lms.Infrastructure.Persistence
             // var dbName = "lms";
             /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
 
-            /* Mongo - Azure */
+            /* Mongo - Azure CosmosDb*/
             var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
 
+            MongoClientSettings settings = MongoClientSettings.FromUrl(
+              new MongoUrl(connectionString)
+            );
+
+            settings.SslSettings =
+              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+            var mongoClient = new MongoClient(settings);
+            
+
             var mongoUrl = MongoUrl.Create(connectionString);
-            var mongoClient = new MongoClient(mongoUrl);
             var dataBase = mongoClient.GetDatabase(mongoUrl.DatabaseName);
             _courses = dataBase.GetCollection<Course>("course");
         }
