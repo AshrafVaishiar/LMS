@@ -27,18 +27,19 @@ public static class DependencyInjection
         services.AddScoped<ICoursesRepository, CoursesRepository>();
 
         ///* Database context DI - local */
-        var dbHost = @"(LocalDb)\MSSQLLocalDB";
-        var dbName = "lms";
-        var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName};";
-        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        //var dbHost = @"(LocalDb)\MSSQLLocalDB";
+        //var dbName = "lms";
+        //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName};";
+        //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
         ///* ========================= */
 
-        /* Database context DI */
+        /* Database context DI - Azure SQL*/
         //var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
         //var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         //var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
         //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName}; User ID=sa; Password={dbPassword}";
-        //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        var ConnectionString = Environment.GetEnvironmentVariable("AZ_SQL_DB_CONNECTION");
+        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
         /* ========================= */
 
         return services;

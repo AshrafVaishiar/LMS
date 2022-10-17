@@ -17,9 +17,13 @@ namespace lms.Infrastructure.Persistence
 
         public CoursesRepository()
         {
-            var dbHost = "localhost";
-            var dbName = "lms";
-            var connectionString = $"mongodb://{dbHost}:27017/{dbName}";
+            /* Mongo - Local */
+            // var dbHost = "localhost";
+            // var dbName = "lms";
+            /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
+
+            /* Mongo - Azure */
+            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
 
             var mongoUrl = MongoUrl.Create(connectionString);
             var mongoClient = new MongoClient(mongoUrl);
