@@ -32,10 +32,10 @@ public static class DependencyInjection
         services.AddScoped<ICoursesRepository, CoursesRepository>();
 
         ///* Database context DI - local */
-        var dbHost = @"(LocalDb)\MSSQLLocalDB";
-        var dbName = "lms";
-        var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName};";
-        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        //var dbHost = @"(LocalDb)\MSSQLLocalDB";
+        //var dbName = "lms";
+        //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName};";
+        //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
         ///* ========================= */
 
         /* Database context DI */
