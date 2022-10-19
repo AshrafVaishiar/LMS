@@ -26,7 +26,7 @@ namespace lms.Infrastructure.Persistence
             /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
 
             /* Mongo - Azure CosmosDb*/
-            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
+            var connectionString = connectionStrings.Value.Mongo;
 
             var mongoUrl = MongoUrl.Create(connectionString);
             var mongoClient = new MongoClient(mongoUrl);

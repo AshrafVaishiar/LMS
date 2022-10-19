@@ -43,8 +43,8 @@ public static class DependencyInjection
         //var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         //var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
         //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName}; User ID=sa; Password={dbPassword}";
-        var ConnectionString = Environment.GetEnvironmentVariable("AZ_SQL_DB_CONNECTION");
-        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        var sqlConnectionString = connectionStrings.Sql;
+        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(sqlConnectionString));
         /* ========================= */
 
         return services;
