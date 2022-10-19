@@ -1,7 +1,10 @@
 ﻿using Abp.Linq.Expressions;
 using lms.Domain.Entities;
+using lms.Infrastructure.Persistence.AppSettings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +18,15 @@ namespace lms.Infrastructure.Persistence
     {
         private readonly IMongoCollection<Course> _courses;
 
-        public CoursesRepository()
+        public CoursesRepository(IOptions<ConnectionStrings> connectionStrings)
         {
-            var dbHost = "localhost";
-            var dbName = "lms";
-            var connectionString = $"mongodb://{dbHost}:27017/{dbName}";
+            /* Mongo - Local */
+            // var dbHost = "localhost";
+            // var dbName = "lms";
+            /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
+
+            /* Mongo - Azure CosmosDb*/
+            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
 
             var mongoUrl = MongoUrl.Create(connectionString);
             var mongoClient = new MongoClient(mongoUrl);

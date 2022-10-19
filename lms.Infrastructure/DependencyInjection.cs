@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using lms.Infrastructure.Persistence.AppSettings;
 
 namespace lms.Infrastructure;
 
@@ -19,6 +20,10 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         ConfigurationManager configuration)
     {
+        var connectionStrings = new ConnectionStrings();
+        configuration.Bind(ConnectionStrings.SectionName, connectionStrings);
+
+        services.AddSingleton(Options.Create(connectionStrings));
 
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -38,7 +43,8 @@ public static class DependencyInjection
         //var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         //var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
         //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName}; User ID=sa; Password={dbPassword}";
-        //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+        var ConnectionString = Environment.GetEnvironmentVariable("AZ_SQL_DB_CONNECTION");
+        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
         /* ========================= */
 
         return services;
