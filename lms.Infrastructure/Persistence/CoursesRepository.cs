@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,9 +29,15 @@ namespace lms.Infrastructure.Persistence
             /* Mongo - Azure CosmosDb*/
             var connectionString = connectionStrings.Value.Mongo;
 
-            var mongoUrl = MongoUrl.Create(connectionString);
-            var mongoClient = new MongoClient(mongoUrl);
-            var dataBase = mongoClient.GetDatabase(mongoUrl.DatabaseName);
+            MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
+
+            settings.SslSettings =
+              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+
+
+            var mongoClient = new MongoClient(settings);
+            var dataBase = mongoClient.GetDatabase("lmscosmosmongo");
+
             _courses = dataBase.GetCollection<Course>("course");
         }
 
