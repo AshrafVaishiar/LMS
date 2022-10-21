@@ -29,6 +29,7 @@ namespace lms.Infrastructure.Persistence
 <<<<<<< HEAD
 <<<<<<< HEAD
             /* Mongo - Azure CosmosDb*/
+<<<<<<< HEAD
             var connectionString = connectionStrings.Value.Mongo;
 
             MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
@@ -39,6 +40,7 @@ namespace lms.Infrastructure.Persistence
             
             var mongoClient = new MongoClient(settings);
             var dataBase = mongoClient.GetDatabase("lmscosmosmongo");
+<<<<<<< HEAD
 =======
             /* Mongo - Azure */
 =======
@@ -49,6 +51,12 @@ namespace lms.Infrastructure.Persistence
 
 <<<<<<< HEAD
 =======
+=======
+
+=======
+            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
+
+>>>>>>> 56e8b87aa06ab2dbfef64f88a6c8797756c6bb24
             MongoClientSettings settings = MongoClientSettings.FromUrl(
               new MongoUrl(connectionString)
             );
@@ -60,7 +68,11 @@ namespace lms.Infrastructure.Persistence
 
             var mongoUrl = MongoUrl.Create(connectionString);
             var dataBase = mongoClient.GetDatabase(mongoUrl.DatabaseName);
+<<<<<<< HEAD
 >>>>>>> Addedd YAML and Prepared Mongo Az CosmosDb
+=======
+>>>>>>> origin/Deployment-V1
+>>>>>>> 56e8b87aa06ab2dbfef64f88a6c8797756c6bb24
             _courses = dataBase.GetCollection<Course>("course");
         }
 
