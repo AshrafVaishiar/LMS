@@ -1,0 +1,40 @@
+﻿apiVersion: apps/v1
+kind: Deployement
+metadata:
+	name: lms-deploy
+spec:
+	selector:
+		matchLables:
+			app: lms-pod
+	replicas: 1
+	template:
+		metadata:
+			labels:
+				app: lms-pod
+		spec:
+			imagePullSecrets:
+			- name: secretforregistry
+			containers:
+			- name: lms-container
+			image: registrylms.azurecr.io/lms.api:latest
+			imagePullPolicy: Always
+			resources:
+			env:
+				- name: AZ_MONGO_DB_CONNECTION
+				  value: "mongodb://lms-cosmos:dw205zXqPiidalyvoIp3LKe75LD4rZfesaLoArnGJ5bClzPhwRwxAVMYl5EM0KoNY6tklmd1BCuJyK2ST9hiLg==@lms-cosmos.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@lms-cosmos@"
+				- name: AZ_SQL_DB_CONNECTION
+				  value: "Server=tcp:sqlserverlms.database.windows.net,1433;Initial Catalog=lmsdb;Persist Security Info=False;User ID=ashserveradmin;Password=Ash!123admin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+			ports:
+			- containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+	name: lmsapi-service
+spec:
+	selector:
+		app: lms-pod
+	type: LoadBalancer
+	ports:
+		- port: 80
+		  targetPort: 80

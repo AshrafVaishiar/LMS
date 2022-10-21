@@ -38,13 +38,18 @@ public static class DependencyInjection
         //services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
         ///* ========================= */
 
-        /* Database context DI */
+        /* Database context DI - Azure SQL*/
         //var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
         //var dbName = Environment.GetEnvironmentVariable("DB_NAME");
         //var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
         //var ConnectionString = $"Data Source={dbHost};Initial Catalog={dbName}; User ID=sa; Password={dbPassword}";
+<<<<<<< HEAD
         var sqlConnectionString = connectionStrings.Sql;
         services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(sqlConnectionString));
+=======
+        var ConnectionString = Environment.GetEnvironmentVariable("AZ_SQL_DB_CONNECTION");
+        services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(ConnectionString));
+>>>>>>> origin/Deployment-V1
         /* ========================= */
 
         return services;
