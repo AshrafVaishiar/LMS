@@ -23,22 +23,34 @@ var builder = WebApplication.CreateBuilder(args);
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+    //builder.Services.AddCors(x => x.AddPolicy("corspolicy", y =>
+    //{
+    //    //dev
+    //    //y.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    //    //prod
+    //    y.WithOrigins("https://lmsapiapi.azure-api.net").AllowAnyMethod().AllowAnyHeader();
+    //}));
 }
 
 var app = builder.Build();
 {
+    app.UseSwagger();
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "LMS - API - V1");
+        c.RoutePrefix = String.Empty;
+    });
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c => {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "LMS - API - V1");
+            c.RoutePrefix = String.Empty;
+        });
     }
-
+    //app.UseCors("corspolicy");
     app.UseHttpsRedirection();
 
-    app.UseAuthentication();
-    app.UseAuthorization();
+    //app.UseAuthentication();
+    //app.UseAuthorization();
 
     app.MapControllers();
 

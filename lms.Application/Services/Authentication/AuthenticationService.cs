@@ -1,6 +1,9 @@
+using lms.api.Common.Errors;
+using ErrorOr;
 using lms.Application.Common.Interfaces.Authentication;
 using lms.Domain.Entities;
 using lms.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Mvc;
 
 namespace lms.Application.Services.Authentication;
 
@@ -14,16 +17,16 @@ public class AuthenticationService : IAuthenticationService
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
     }
-    public AuthenticationResult Login(string Email, string Password)
+    public ErrorOr<AuthenticationResult> Login(string Email, string Password)
     {
         // check if user already exists
         if(_userRepository.GetUserByEmail(Email) is not User user) {
-            throw new Exception("User with given email does not exist.");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         // validate password
         if(user.Password != Password) {
-            throw new Exception("Invalid password.");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         // create Jwt Token
@@ -31,12 +34,12 @@ public class AuthenticationService : IAuthenticationService
         return new AuthenticationResult(user, token);
     }
 
-    public AuthenticationResult Register(string UserName, string UserType, string Email, string Password)
+    public ErrorOr<AuthenticationResult> Register(string UserName, string UserType, string Email, string Password)
     {
         // check if user already exists
         if (_userRepository.GetUserByEmail(Email) is not null)
         {
-            throw new Exception("User with given email already exist.");
+            return Errors.User.DuplicateEmail;
         }
 
         // create new user (generate unique ID) & Persist to DB

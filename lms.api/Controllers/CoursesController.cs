@@ -1,13 +1,15 @@
 using lms.Application.Services.Courses;
 using lms.Contracts.Courses;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lms.api.Controllers;
 
+//[EnableCors("corspolicy")]
 [ApiController]
 [Route("lms/courses")]
-[Authorize]
+//[Authorize]
 public class CoursesController : ControllerBase {
 
     private  readonly ICoursesService _coursesService;
@@ -17,6 +19,7 @@ public class CoursesController : ControllerBase {
         _coursesService = coursesService;
     }
 
+    [AllowAnonymous]
     [HttpGet("getall")]
     public IActionResult GetAll() {
         var response = _coursesService.GetAll();
@@ -37,8 +40,9 @@ public class CoursesController : ControllerBase {
         return Ok(response);
     }
 
+    [AllowAnonymous]
     [HttpPost]
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public IActionResult Add(AddCourseRequest request)
     {
         var response = _coursesService.Add(request);
@@ -46,7 +50,7 @@ public class CoursesController : ControllerBase {
     }
 
     [HttpDelete]
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public IActionResult Delete(string CourseName)
     {
         var response = _coursesService.Delete(CourseName);
