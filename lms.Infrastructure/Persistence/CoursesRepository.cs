@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,53 +25,12 @@ namespace lms.Infrastructure.Persistence
             // var dbName = "lms";
             /* var connectionString = $"mongodb://{dbHost}:27017/{dbName}";*/
 
-<<<<<<< HEAD
-<<<<<<< HEAD
             /* Mongo - Azure CosmosDb*/
-<<<<<<< HEAD
             var connectionString = connectionStrings.Value.Mongo;
 
-            MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(connectionString));
-
-            settings.SslSettings =
-              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
-
-            
-            var mongoClient = new MongoClient(settings);
-            var dataBase = mongoClient.GetDatabase("lmscosmosmongo");
-<<<<<<< HEAD
-=======
-            /* Mongo - Azure */
-=======
-            /* Mongo - Azure CosmosDb*/
->>>>>>> Addedd YAML and Prepared Mongo Az CosmosDb
-            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
->>>>>>> ConnectionStringChanges-Az
-
-<<<<<<< HEAD
-=======
-=======
-
-=======
-            var connectionString = Environment.GetEnvironmentVariable("AZ_MONGO_DB_CONNECTION");
-
->>>>>>> 56e8b87aa06ab2dbfef64f88a6c8797756c6bb24
-            MongoClientSettings settings = MongoClientSettings.FromUrl(
-              new MongoUrl(connectionString)
-            );
-
-            settings.SslSettings =
-              new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
-            var mongoClient = new MongoClient(settings);
-            
-
             var mongoUrl = MongoUrl.Create(connectionString);
+            var mongoClient = new MongoClient(mongoUrl);
             var dataBase = mongoClient.GetDatabase(mongoUrl.DatabaseName);
-<<<<<<< HEAD
->>>>>>> Addedd YAML and Prepared Mongo Az CosmosDb
-=======
->>>>>>> origin/Deployment-V1
->>>>>>> 56e8b87aa06ab2dbfef64f88a6c8797756c6bb24
             _courses = dataBase.GetCollection<Course>("course");
         }
 
@@ -90,7 +48,7 @@ namespace lms.Infrastructure.Persistence
         {
             var filterDefinition = Builders<Course>.Filter.Eq(x => x.CourseTechnology, technology);
 
-            if(durationToRange>0 && durationFromRange>0)
+            if (durationToRange > 0 && durationFromRange > 0)
             {
                 filterDefinition &= Builders<Course>.Filter.Gte(x => x.CourseDuration, durationFromRange);
                 filterDefinition &= Builders<Course>.Filter.Lte(x => x.CourseDuration, durationToRange);
