@@ -19,6 +19,13 @@
 }
 
 {
+  "userName": "ashUser",
+  "userType": "user",
+  "email": "ash@lms.com",
+  "password": "Ash!23"
+}
+
+{
   "courseName": ".Net 6.0",
   "courseDuration": 3,
   "courseDescription": ".Net and its new features",

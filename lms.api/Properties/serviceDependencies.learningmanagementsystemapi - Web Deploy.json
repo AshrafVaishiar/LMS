@@ -3,6 +3,13 @@
     "apis1": {
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/lmsapiapi/apis/lmsapi",
       "type": "apis.azure"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sqlserverlms/databases/lmssqldb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:Sql",
+      "dynamicId": null
     }
   }
 }

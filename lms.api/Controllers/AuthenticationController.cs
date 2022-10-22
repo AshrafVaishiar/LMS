@@ -33,7 +33,6 @@ public class AuthenticationController : ControllerBase
         return Problem(statusCode: statusCode, title: firstError.Description);
     }
 
-    [AllowAnonymous]
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
@@ -53,7 +52,6 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    [AllowAnonymous]
     [HttpGet]
     public IActionResult Get()
     {
