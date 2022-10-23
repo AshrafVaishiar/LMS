@@ -1,7 +1,7 @@
-using lms.Domain.Entities;
+//using lms.Domain.Entities;
 
-namespace lms.Application.Common.Interfaces.Authentication;
+//namespace lms.Application.Common.Interfaces.Authentication;
 
-public interface IJwtTokenGenerator {
-    string GenerateToken(User user);
-} 
+//public interface IJwtTokenGenerator {
+//    string GenerateToken(User user);
+//} 

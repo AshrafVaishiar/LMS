@@ -1,6 +1,6 @@
 using lms.api.Common.Errors;
 using ErrorOr;
-using lms.Application.Common.Interfaces.Authentication;
+//using lms.Application.Common.Interfaces.Authentication;
 using lms.Domain.Entities;
 using lms.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +9,12 @@ namespace lms.Application.Services.Authentication;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    //private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
 
-    public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+    public AuthenticationService(/*IJwtTokenGenerator jwtTokenGenerator, */IUserRepository userRepository)
     {
-        _jwtTokenGenerator = jwtTokenGenerator;
+        //_jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
     }
     public ErrorOr<AuthenticationResult> Login(string Email, string Password)

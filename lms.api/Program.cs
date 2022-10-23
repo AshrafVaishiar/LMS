@@ -1,5 +1,7 @@
 using lms.Application;
 using lms.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -23,6 +25,8 @@ var builder = WebApplication.CreateBuilder(args);
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     });
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(builder.Configuration, "AzureAd");
     //builder.Services.AddCors(x => x.AddPolicy("corspolicy", y =>
     //{
     //    //dev
@@ -46,11 +50,15 @@ var app = builder.Build();
             //c.RoutePrefix = String.Empty;
         });
     }
-    //app.UseCors("corspolicy");
+    app.UseCors(options =>
+    {
+        options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    });
+
     app.UseHttpsRedirection();
 
-    //app.UseAuthentication();
-    //app.UseAuthorization();
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.MapControllers();
 
