@@ -7,6 +7,14 @@
 }
 
 {
+  "courseName": "NodeJs",
+  "courseDuration": 5,
+  "courseDescription": "Advanced NodeJs",
+  "courseTechnology": "Node",
+  "courseLaunchURL": "https://nodejs.org"
+}
+
+{
   "email": "ash@lms.com",
   "password": "Ash!23"
 }

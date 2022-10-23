@@ -42,9 +42,9 @@ public class CoursesController : ControllerBase {
         return Ok(response);
     }
 
-    //[AllowAnonymous]
+    [AllowAnonymous]
     [HttpPost]
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public IActionResult Add(AddCourseRequest request)
     {
         var response = _coursesService.Add(request);
