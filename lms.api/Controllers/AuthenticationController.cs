@@ -63,7 +63,7 @@ public class AuthenticationController : ControllerBase
         return new AuthenticationResponse(
             authResult.user.Id,
             authResult.user.UserName,
-            authResult.user.Email,
-            authResult.Token);
+            authResult.user.Email
+            /*authResult.Token*/);
     }
 }

@@ -19,7 +19,7 @@ public class CoursesController : ControllerBase {
         _coursesService = coursesService;
     }
 
-    [AllowAnonymous]
+    //[AllowAnonymous]
     [HttpGet("getall")]
     public IActionResult GetAll() {
         var response = _coursesService.GetAll();
@@ -40,7 +40,7 @@ public class CoursesController : ControllerBase {
         return Ok(response);
     }
 
-    [AllowAnonymous]
+    //[AllowAnonymous]
     [HttpPost]
     //[Authorize(Roles = "admin")]
     public IActionResult Add(AddCourseRequest request)

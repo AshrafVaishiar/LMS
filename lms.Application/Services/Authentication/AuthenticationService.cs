@@ -30,8 +30,8 @@ public class AuthenticationService : IAuthenticationService
         }
 
         // create Jwt Token
-        var token = _jwtTokenGenerator.GenerateToken(user);
-        return new AuthenticationResult(user, token);
+        //var token = _jwtTokenGenerator.GenerateToken(user);
+        return new AuthenticationResult(user);
     }
 
     public ErrorOr<AuthenticationResult> Register(string UserName, string UserType, string Email, string Password)
@@ -54,7 +54,7 @@ public class AuthenticationService : IAuthenticationService
         _userRepository.Add(user);
 
         // create JWT Token
-        var token = _jwtTokenGenerator.GenerateToken(user);
-        return new AuthenticationResult(user, token);
+        //var token = _jwtTokenGenerator.GenerateToken(user);
+        return new AuthenticationResult(user);
     }
 }
