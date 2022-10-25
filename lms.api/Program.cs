@@ -35,6 +35,7 @@ var builder = WebApplication.CreateBuilder(args);
     //    y.WithOrigins("https://lmsapiapi.azure-api.net").AllowAnyMethod().AllowAnyHeader();
     //}));
 }
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
 var app = builder.Build();
 {

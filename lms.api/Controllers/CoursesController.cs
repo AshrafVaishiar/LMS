@@ -21,7 +21,7 @@ public class CoursesController : ControllerBase {
         _coursesService = coursesService;
     }
 
-    //[AllowAnonymous]
+    [AllowAnonymous]
     [HttpGet("getall")]
     public IActionResult GetAll() {
         var response = _coursesService.GetAll();
